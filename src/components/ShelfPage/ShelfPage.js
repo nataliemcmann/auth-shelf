@@ -1,24 +1,21 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
+import React from 'react';
+import  { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import DeleteButton from '../DeleteButton/DeleteButton';
 
 function ShelfPage() {
 
   const [descriptionInput, setdescriptionInput] = useState('');
   const [imageInput, setimageInput] = useState('');
 
-
-  const dispatch = useDispatch();
-  const items = useSelector((store) => store.items);
-
-
-
-  useEffect(() => {
-    dispatch({
-      type: "FETCH_THINGS",
-    });
-  }, []);
+    const dispatch = useDispatch();
+    const itemsReducer = useSelector(store => store.itemsReducer);
+   
+    useEffect(() => {
+        dispatch({
+            type: 'SAGA/FETCH_ITEMS'
+        });
+    }, []);
 
   const addItem = (event) => {
     event.preventDefault();
@@ -39,14 +36,16 @@ function ShelfPage() {
       <h2>Shelf</h2>
       <p>All of the available items can be seen here.</p>
       <ul>
-        {items.map((item) => {
-          return (
-            <li key={item.id}>
-              {item.description}
-              <img src={item.image_url} />
+      {   itemsReducer &&
+        itemsReducer.map((item) => {
+            return <li 
+                key={item.id}>
+                {item.description}
+                <img src={item.image_url}/>
+                <DeleteButton item={item}/>
             </li>
-          );
-        })}
+        })
+    }
       </ul>
       <form onSubmit={addItem}>
       <input
@@ -60,7 +59,7 @@ function ShelfPage() {
                   value={imageInput}
                   onChange={(evt) => setimageInput(evt.target.value)} />
         <>
-          <button onClick={() => addItem()}></button>
+          <button onClick={() => addItem()}>ADD ITEM</button>
         </>
       </form>
     </div>

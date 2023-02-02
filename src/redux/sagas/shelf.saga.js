@@ -1,5 +1,27 @@
-import axios from "axios";
-import { put, takeEvery } from "redux-saga/effects";
+import axios from 'axios';
+import { put, takeEvery } from 'redux-saga/effects';
+
+//SAGA Get ShelfPage Function
+function* fetchItems() {
+    try {
+        const items = yield axios({
+            method: 'GET', 
+            url: '/api/shelf'
+        })
+        yield put({
+            type: 'SET_ITEMS',
+            payload: items.data
+        })
+    }catch(error) {
+        console.log('SAGA function fetchItems failed', error)
+    }
+}//end fetchItems function
+
+
+
+
+
+
 
 //if we ever want to see action.payload in our function, we need to give it action as a parameter
 function* createItem(action) {
@@ -22,8 +44,30 @@ function* createItem(action) {
   }
 }
 
+//I think I need to add the action so I can access req.user
+function* deleteItem(action) {
+    try {
+        //capture id to delete
+        const itemID = action.payload;
+        //send if to server
+        const response = yield axios({
+            method: 'DELETE',
+            url: `/api/shelf/${itemID}`
+        })
+        yield put({
+            type: 'SAGA/FETCH_ITEMS'
+        })
+    } catch (error) {
+        console.log('Shelf delete request failed', error)
+    }
+}
+
+
+
 function* shelfSaga() {
-  yield takeEvery("SAGA/CREATE_ITEM", createItem);
+    yield takeEvery('SAGA/CREATE_ITEM', createItem);
+    yield takeEvery('SAGA/DELETE_ITEM', deleteItem);
+    yield takeEvery('SAGA/FETCH_ITEMS', fetchItems)
 }
 
 export default shelfSaga;
