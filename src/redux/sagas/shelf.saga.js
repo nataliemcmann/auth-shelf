@@ -61,6 +61,7 @@ function* deleteItem(action) {
 function* shelfSaga() {
     yield takeEvery('SAGA/CREATE_ITEM', createItem);
     yield takeEvery('SAGA/DELETE_ITEM', deleteItem);
+    yield takeEvery('SAGA/FETCH_ITEMS', fetchItems)
 }
 
 export default shelfSaga;
