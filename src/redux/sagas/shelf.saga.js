@@ -1,8 +1,21 @@
 import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
 
-
-
+//SAGA Get ShelfPage Function
+function* fetchItems() {
+    try {
+        const items = yield axios({
+            method: 'GET', 
+            url: '/api/shelf'
+        })
+        yield put({
+            type: 'SET_ITEMS',
+            payload: items.data
+        })
+    }catch(error) {
+        console.log('SAGA function fetchItems failed', error)
+    }
+}//end fetchItems function
 
 
 

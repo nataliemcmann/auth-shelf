@@ -8,7 +8,18 @@ const router = express.Router();
 
 // Items GET Route
 router.get('/', (req, res) => {
-  res.sendStatus(200); // For testing only, can be removed
+  const sqlQuery = `
+  SELECT * FROM "item"
+  ORDER BY "description" ASC;
+  `;
+  pool.query(sqlQuery)
+    .then(result => {
+      res.send(result.rows)
+    })
+    .catch(error => {
+      console.log('Error in getting items from the db', error)
+      res.sendStatus(500);
+    })
 });
 
 /**
