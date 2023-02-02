@@ -1,3 +1,6 @@
+
+//things reducer
+
 const shelfReducer = (state = {}, action) => {
     switch (action.type) {
       case 'CREATE_ITEM':
@@ -10,3 +13,4 @@ const shelfReducer = (state = {}, action) => {
   // user will be on the redux state at:
   // state.user
   export default shelfReducer;
+
