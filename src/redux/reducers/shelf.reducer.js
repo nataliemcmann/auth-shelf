@@ -1,6 +1,6 @@
 
 //Items reducer
-const items = (state=[], action) => {
+const itemsReducer = (state=[], action) => {
     switch(action.type) {
         case 'SET_ITEMS': //yield put type from fetchItems Saga Function
             return action.payload;
