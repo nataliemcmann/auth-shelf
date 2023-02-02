@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 function ShelfPage() {
 
 
+
     const dispatch = useDispatch();
     const items = useSelector(store => store.items);
    
@@ -14,6 +15,15 @@ function ShelfPage() {
         });
     }, []);
 
+
+
+
+  const addItem = () => {
+    dispatch({
+      type: 'SAGA/CREATE_ITEM',
+      payload: newElement // state/value we gave the input box
+    })
+  }
 
 
   return (
