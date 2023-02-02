@@ -51,6 +51,9 @@ function* deleteItem(action) {
             method: 'DELETE',
             url: `/api/shelf/${itemID}`
         })
+        yield put({
+            type: 'SAGA/FETCH_ITEMS'
+        })
     } catch (error) {
         console.log('Shelf delete request failed', error)
     }
