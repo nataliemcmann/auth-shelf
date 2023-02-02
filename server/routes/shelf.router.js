@@ -27,11 +27,19 @@ router.get('/', (req, res) => {
  */
 router.post('/', (req, res) => {
  
-
+  const newItem = req.body;
+  console.log("POST server newItem", newItem)
+  const user = req.user.id
+  console.log("POST server user", user)
+  const newDescription = req.body.description;
+  console.log("this is the description",newDescription)
+  const newUrl = newItem.url;
+  console.log("this is the URL",newUrl)
   const queryText = `INSERT INTO "item" (description, image_url, user_id)
-    VALUES ($1, $2, $3) `;
+    VALUES ($1, $2, $3);`;
+  const queryValues =[newDescription, newUrl, user]
   pool
-    .query(queryText, [])
+    .query(queryText, queryValues)
     .then(() => res.sendStatus(201))
     .catch((err) => {
       console.log('ITEM POST  failed: ', err);

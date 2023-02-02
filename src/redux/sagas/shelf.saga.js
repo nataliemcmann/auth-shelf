@@ -25,20 +25,24 @@ function* fetchItems() {
 
 //if we ever want to see action.payload in our function, we need to give it action as a parameter
 function* createItem(action) {
-	const newItem = action.payload;
-	//send the newItem string (something like 'ducky') to our server in a POST request
-	const response =  yield axios({
-		method: 'POST', 
-		url: '//api/shelf',
-		data: {newItem}
-		//👆🏾 same as {newItem: newItem}
-	})
-	//we've successfully created a new Item thanks to our post route
-	//now we need to fetch the data again and bring our itemList reducer back in sync with the data on our server
-	yield put({
-		type: 'CREATE_ITEM'
-	})
-	
+  try {
+    const newItem = action.payload;
+    //send the newItem string (something like 'ducky') to our server in a POST request
+    const response = yield axios({
+      method: "POST",
+      url: "/api/shelf",
+      data:  newItem 
+      //👆🏾 same as {newItem: newItem}
+    });
+    console.log('This is the newItem in SAGA', newItem)
+    //we've successfully created a new Item thanks to our post route
+    //now we need to fetch the data again and bring our itemList reducer back in sync with the data on our server
+    yield put({
+      type: "CREATE_ITEM",
+    });
+  } catch (error) {
+    console.log("User POST request failed", error);
+  }
 }
 
 //I think I need to add the action so I can access req.user

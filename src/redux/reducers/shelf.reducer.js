@@ -17,14 +17,14 @@ const itemsReducer = (state=[], action) => {
 
 
 
-const shelfReducer = (state = {}, action) => {
-    switch (action.type) {
-      case 'CREATE_ITEM':
-        return action.payload;
-      default:
-        return state;
-    }
-  };
+// const newItemReducer = (state = {}, action) => {
+//     switch (action.type) {
+//       case 'CREATE_ITEM':
+//         return action.payload;
+//       default:
+//         return state;
+//     }
+//   };
   
   // user will be on the redux state at:
   // state.user
