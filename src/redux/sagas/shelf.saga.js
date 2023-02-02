@@ -41,8 +41,26 @@ function* createItem(action) {
 	
 }
 
+//I think I need to add the action so I can access req.user
+function* deleteItem(action) {
+    try {
+        //capture id to delete
+        const itemID = action.payload;
+        //send if to server
+        const response = yield axios({
+            method: 'DELETE',
+            url: `/api/shelf/${itemID}`
+        })
+    } catch (error) {
+        console.log('Shelf delete request failed', error)
+    }
+}
+
+
+
 function* shelfSaga() {
     yield takeEvery('SAGA/CREATE_ITEM', createItem);
-  }
-  
-  export default shelfSaga;
+    yield takeEvery('SAGA/DELETE_ITEM', deleteItem);
+}
+
+export default shelfSaga;

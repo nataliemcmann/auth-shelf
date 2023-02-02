@@ -1,6 +1,7 @@
 import React from 'react';
 import  { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import DeleteButton from '../DeleteButton/DeleteButton';
 
 function ShelfPage() {
 
@@ -37,6 +38,7 @@ function ShelfPage() {
                         key={item.id}>
                         {item.discription}
                         <img src={item.image_url}/>
+                        <DeleteButton item={item}/>
                     </li>
                 })
             }

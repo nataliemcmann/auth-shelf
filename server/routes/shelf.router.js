@@ -43,10 +43,10 @@ router.post('/', (req, res) => {
  * Delete an item if it's something the logged in user added
  */
 router.delete('/:id', (req, res) => {
-  const sqlValue = [req.params.id];
+  const sqlValue = [req.params.id, req.user.id];
   const sqlQuery = `
   DELETE FROM "item"
-    WHERE "user_id" = $1;
+    WHERE "id" = $1 AND "user_id" = $2;
   `;
   pool.query(sqlQuery, sqlValue)
   .then(() => res.sendStatus(200))
