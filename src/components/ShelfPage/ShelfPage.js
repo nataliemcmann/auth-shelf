@@ -5,18 +5,14 @@ import DeleteButton from '../DeleteButton/DeleteButton';
 
 function ShelfPage() {
 
-
-
     const dispatch = useDispatch();
-    const items = useSelector(store => store.items);
+    const itemsReducer = useSelector(store => store.itemsReducer);
    
     useEffect(() => {
         dispatch({
-            type: 'FETCH_THINGS'
+            type: 'SAGA/FETCH_ITEMS'
         });
     }, []);
-
-
 
 
   const addItem = () => {
@@ -32,11 +28,11 @@ function ShelfPage() {
       <h2>Shelf</h2>
       <p>All of the available items can be seen here.</p>
       <ul>
-            {
-                items.map((item) => {
+            {   itemsReducer &&
+                itemsReducer.map((item) => {
                     return <li 
                         key={item.id}>
-                        {item.discription}
+                        {item.description}
                         <img src={item.image_url}/>
                         <DeleteButton item={item}/>
                     </li>

@@ -12,7 +12,7 @@ function DeleteButton({ item }) {
         dispatch({
             type: 'SAGA/DELETE_ITEM',
             payload: itemID
-        })
+        });
     }
 
     return(

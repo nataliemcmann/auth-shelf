@@ -51,6 +51,9 @@ function* deleteItem(action) {
             method: 'DELETE',
             url: `/api/shelf/${itemID}`
         })
+        yield put({
+            type: 'SAGA/FETCH_ITEMS'
+        })
     } catch (error) {
         console.log('Shelf delete request failed', error)
     }
@@ -61,6 +64,7 @@ function* deleteItem(action) {
 function* shelfSaga() {
     yield takeEvery('SAGA/CREATE_ITEM', createItem);
     yield takeEvery('SAGA/DELETE_ITEM', deleteItem);
+    yield takeEvery('SAGA/FETCH_ITEMS', fetchItems)
 }
 
 export default shelfSaga;
