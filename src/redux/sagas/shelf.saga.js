@@ -31,9 +31,10 @@ function* createItem(action) {
     const response = yield axios({
       method: "POST",
       url: "/api/shelf",
-      data: { newItem },
+      data:  newItem 
       //👆🏾 same as {newItem: newItem}
     });
+    console.log('This is the newItem in SAGA', newItem)
     //we've successfully created a new Item thanks to our post route
     //now we need to fetch the data again and bring our itemList reducer back in sync with the data on our server
     yield put({

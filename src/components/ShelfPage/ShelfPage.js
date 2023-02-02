@@ -21,7 +21,7 @@ function ShelfPage() {
     event.preventDefault();
     let newItem = {
       description: descriptionInput,
-      image_url: imageInput,
+      url: imageInput,
      
     }
     console.log('This is the new ITEM', newItem);
@@ -29,6 +29,11 @@ function ShelfPage() {
       type: "SAGA/CREATE_ITEM",
       payload: newItem, // state/value we gave the input box
     });
+    dispatch({
+      type: "SAGA/FETCH_ITEMS"
+    })
+    setdescriptionInput('');
+    setimageInput('');
   };
 
   return (
@@ -59,7 +64,7 @@ function ShelfPage() {
                   value={imageInput}
                   onChange={(evt) => setimageInput(evt.target.value)} />
         <>
-          <button onClick={() => addItem()}>ADD ITEM</button>
+          <button onClick={(event) => addItem(event)}>ADD ITEM</button>
         </>
       </form>
     </div>
