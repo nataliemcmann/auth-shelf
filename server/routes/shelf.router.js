@@ -13,7 +13,17 @@ router.get('/', (req, res) => {
  * Add an item for the logged in user to the shelf
  */
 router.post('/', (req, res) => {
-  // endpoint functionality
+ 
+
+  const queryText = `INSERT INTO "item" (description, image_url, user_id)
+    VALUES ($1, $2, $3) `;
+  pool
+    .query(queryText, [])
+    .then(() => res.sendStatus(201))
+    .catch((err) => {
+      console.log('ITEM POST  failed: ', err);
+      res.sendStatus(500);
+    });
 });
 
 /**
