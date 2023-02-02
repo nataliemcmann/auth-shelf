@@ -2,6 +2,7 @@ import React from 'react';
 import  { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DeleteButton from '../DeleteButton/DeleteButton';
+import AddItemForm from '../ShelfForm/ShelfForm';
 
 function ShelfPage() {
 
@@ -17,24 +18,6 @@ function ShelfPage() {
         });
     }, []);
 
-  const addItem = (event) => {
-    event.preventDefault();
-    let newItem = {
-      description: descriptionInput,
-      url: imageInput,
-     
-    }
-    console.log('This is the new ITEM', newItem);
-    dispatch({
-      type: "SAGA/CREATE_ITEM",
-      payload: newItem, // state/value we gave the input box
-    });
-    dispatch({
-      type: "SAGA/FETCH_ITEMS"
-    })
-    setdescriptionInput('');
-    setimageInput('');
-  };
 
   return (
     <div className="container">
@@ -48,25 +31,12 @@ function ShelfPage() {
                 {item.description}
                 <img src={item.image_url}/>
                 <DeleteButton item={item}/>
+                <AddItemForm />
             </li>
         })
     }
       </ul>
-      <form onSubmit={addItem}>
-      <input
-                  type='text'
-                  placeholder="Description"
-                  value={descriptionInput}
-                  onChange={(evt) => setdescriptionInput(evt.target.value)} />
-      <input
-                  type='text'
-                  placeholder="Image"
-                  value={imageInput}
-                  onChange={(evt) => setimageInput(evt.target.value)} />
-        <>
-          <button onClick={(event) => addItem(event)}>ADD ITEM</button>
-        </>
-      </form>
+      
     </div>
   );
 }
