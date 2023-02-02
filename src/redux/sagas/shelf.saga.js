@@ -28,8 +28,16 @@ function* createItem(action) {
 	
 }
 
+//I think I need to add the action so I can access req.user
+function* deleteItem(action) {
+    
+}
+
+
+
 function* shelfSaga() {
     yield takeEvery('SAGA/CREATE_ITEM', createItem);
-  }
-  
-  export default shelfSaga;
+    yield takeEvery('SAGA/DELETE_ITEM', deleteItem);
+}
+
+export default shelfSaga;
